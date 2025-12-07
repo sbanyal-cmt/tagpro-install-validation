@@ -4,8 +4,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { PhaseContainer } from '../PhaseContainer';
 import { trackWelcomeStart, trackWelcomeComplete } from '@/services/analytics';
-import progressiveLogo from '@/assets/progressive-logo.png';
+import libertyMutualLogo from '@/assets/Liberty-Mutual-Logo.png';
 import cmtLogo from '@/assets/cmt-logo.png';
+import tagProIntro from '@/assets/tagpro-intro.jpg';
 
 interface WelcomePhaseProps {
   onNext: () => void;
@@ -66,25 +67,18 @@ export const WelcomePhase: React.FC<WelcomePhaseProps> = ({ onNext, onUpdateBoxI
     >
       <div className="space-y-8">
         <div className="flex justify-center items-center space-x-6 mb-6">
-          <img src={progressiveLogo} alt="Progressive" className="h-6" />
+          <img src={libertyMutualLogo} alt="Liberty Mutual" className="h-6" />
           <img src={cmtLogo} alt="Cambridge Mobile Telematics" className="h-20" />
         </div>
         
         <div className="text-center space-y-6">
-          {/* Vimeo Video */}
-          <div className="bg-muted/20 p-6 border">
-            <h4 className="font-medium text-foreground mb-4">Watch Setup Video</h4>
-            <div style={{padding:"56.25% 0 0 0", position:"relative"}}>
-              <iframe 
-                src="https://player.vimeo.com/video/1117145251?badge=0&autopause=0&player_id=0&app_id=58479" 
-                frameBorder="0" 
-                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
-                referrerPolicy="strict-origin-when-cross-origin" 
-                style={{position:"absolute", top:0, left:0, width:"100%", height:"100%"}} 
-                title="SoloTag Walkthrough Video"
-              />
-            </div>
-            <script src="https://player.vimeo.com/api/player.js"></script>
+          {/* Tag Pro Intro Image */}
+          <div className="bg-muted/20 p-6 border rounded-lg">
+            <img 
+              src={tagProIntro} 
+              alt="Tag Pro Introduction" 
+              className="w-full h-auto rounded-lg"
+            />
           </div>
         </div>
 
