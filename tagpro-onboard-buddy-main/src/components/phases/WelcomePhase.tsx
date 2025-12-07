@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { PhaseContainer } from '../PhaseContainer';
 import { trackWelcomeStart, trackWelcomeComplete } from '@/services/analytics';
-import libertyMutualLogo from '@/assets/Liberty-Mutual-Logo.png';
+import limuLogo from '@/assets/LIMU-Logo.png';
 import cmtLogo from '@/assets/cmt-logo.png';
 import tagProIntro from '@/assets/tagpro-intro.jpg';
 
@@ -67,7 +67,7 @@ export const WelcomePhase: React.FC<WelcomePhaseProps> = ({ onNext, onUpdateBoxI
     >
       <div className="space-y-8">
         <div className="flex justify-center items-center space-x-6 mb-6">
-          <img src={libertyMutualLogo} alt="Liberty Mutual" className="h-20" />
+          <img src={limuLogo} alt="Liberty Mutual" className="h-20" />
           <img src={cmtLogo} alt="Cambridge Mobile Telematics" className="h-20" />
         </div>
         
