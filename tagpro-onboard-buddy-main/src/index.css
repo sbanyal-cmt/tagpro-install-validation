@@ -9,43 +9,43 @@ All colors MUST be HSL.
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 210 11% 15%;
+    --foreground: 243 70% 15%; /* Navy blue for text */
 
     --card: 0 0% 100%;
-    --card-foreground: 210 11% 15%;
+    --card-foreground: 243 70% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 11% 15%;
+    --popover-foreground: 243 70% 15%;
 
-    /* Progressive & CMT Brand Colors */
-    --primary: 214 100% 55%; /* Progressive Blue */
+    /* Tag Pro Brand Colors */
+    --primary: 243 70% 15%; /* Navy Blue #0e0c44 */
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 214 100% 50%;
+    --primary-hover: 243 70% 20%;
 
-    --secondary: 195 100% 50%; /* CMT Teal */
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 48 100% 50%; /* Yellow/Gold #ffd000 */
+    --secondary-foreground: 243 70% 15%;
 
     --success: 142 71% 45%; /* Green for success states */
     --success-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 243 20% 96%;
+    --muted-foreground: 243 30% 47%;
 
-    --accent: 214 32% 91%;
-    --accent-foreground: 214 100% 55%;
+    --accent: 48 100% 95%; /* Light yellow tint for accents */
+    --accent-foreground: 243 70% 15%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 16% 90%;
-    --input: 210 16% 90%;
-    --ring: 214 100% 40%;
+    --border: 243 20% 90%;
+    --input: 243 20% 90%;
+    --ring: 48 100% 50%; /* Yellow ring for focus states */
 
     /* Custom gradients and effects */
-    --gradient-primary: linear-gradient(135deg, hsl(214 100% 40%) 0%, hsl(214 100% 50%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(243 70% 15%) 0%, hsl(243 70% 25%) 100%);
     --gradient-success: linear-gradient(135deg, hsl(142 71% 45%) 0%, hsl(142 71% 55%) 100%);
-    --shadow-soft: 0 4px 6px -1px hsl(214 100% 40% / 0.1), 0 2px 4px -1px hsl(214 100% 40% / 0.06);
-    --shadow-elevated: 0 10px 15px -3px hsl(214 100% 40% / 0.1), 0 4px 6px -2px hsl(214 100% 40% / 0.05);
+    --shadow-soft: 0 4px 6px -1px hsl(243 70% 15% / 0.1), 0 2px 4px -1px hsl(243 70% 15% / 0.06);
+    --shadow-elevated: 0 10px 15px -3px hsl(243 70% 15% / 0.1), 0 4px 6px -2px hsl(243 70% 15% / 0.05);
 
     /* Animation */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -79,8 +79,8 @@ All colors MUST be HSL.
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 48 100% 50%; /* Yellow for dark mode primary */
+    --primary-foreground: 243 70% 15%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
