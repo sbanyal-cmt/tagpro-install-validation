@@ -18,6 +18,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./tagpro-onboard-buddy-main
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,12 +30,15 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
+          cache-dependency-path: './tagpro-onboard-buddy-main/package-lock.json'
       
       - name: Install dependencies
         run: npm ci
+        working-directory: ./tagpro-onboard-buddy-main
       
       - name: Build
         run: npm run build
+        working-directory: ./tagpro-onboard-buddy-main
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -40,7 +46,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: './tagpro-onboard-buddy-main/dist'
 
   deploy:
     environment:
