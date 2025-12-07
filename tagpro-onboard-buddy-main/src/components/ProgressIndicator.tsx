@@ -20,9 +20,9 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
           className={cn(
             "w-3 h-3 rounded-full transition-all duration-300",
             index < currentPhase
-              ? "bg-success"
+              ? "bg-secondary" // Yellow for completed steps
               : index === currentPhase
-              ? "bg-primary"
+              ? "bg-secondary ring-2 ring-secondary ring-offset-2" // Yellow with ring for current step
               : "bg-muted"
           )}
         />
