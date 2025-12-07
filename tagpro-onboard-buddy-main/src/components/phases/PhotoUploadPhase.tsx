@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { PhaseContainer } from '../PhaseContainer';
 import { Camera, Upload, RotateCcw, Check, Square } from 'lucide-react';
-import tagProPhoto from '@/assets/tag-max-photo.jpg';
+import tagProInstall from '@/assets/tagpro-install.jpg';
 
 interface PhotoUploadPhaseProps {
   onPhotoUpload: (file: File) => void;
@@ -184,18 +184,10 @@ export const PhotoUploadPhase: React.FC<PhotoUploadPhaseProps> = ({
             <div className="text-center space-y-4">
               <div className="flex justify-center mb-4">
                 <img 
-                  src={tagProPhoto} 
+                  src={tagProInstall} 
                   alt="Tag Pro device" 
                   className="w-64 h-48 object-cover border border-border rounded-lg"
                 />
-              </div>
-              <div className="space-y-2">
-                <p className="font-medium text-foreground">
-                  Take a photo of Tag Pro on your windshield
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Make sure the device and windshield are clearly visible
-                </p>
               </div>
             </div>
 
