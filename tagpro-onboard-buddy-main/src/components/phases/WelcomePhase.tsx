@@ -67,7 +67,7 @@ export const WelcomePhase: React.FC<WelcomePhaseProps> = ({ onNext, onUpdateBoxI
     >
       <div className="space-y-8">
         <div className="flex justify-center items-center space-x-6 mb-6">
-          <img src={libertyMutualLogo} alt="Liberty Mutual" className="h-6" />
+          <img src={libertyMutualLogo} alt="Liberty Mutual" className="h-20" />
           <img src={cmtLogo} alt="Cambridge Mobile Telematics" className="h-20" />
         </div>
         
