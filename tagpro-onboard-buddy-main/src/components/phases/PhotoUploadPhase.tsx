@@ -195,7 +195,6 @@ export const PhotoUploadPhase: React.FC<PhotoUploadPhaseProps> = ({
               <h4 className="font-medium text-amber-800 mb-2">Photo Guidelines:</h4>
               <ul className="text-sm text-amber-700 space-y-1">
                 <li>• Ensure Tag Pro is clearly visible with good lighting</li>
-                <li>• Do not place Tag Pro behind tint or stickers</li>
               </ul>
             </div>
 
