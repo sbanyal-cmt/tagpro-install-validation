@@ -140,11 +140,11 @@ export const CompletePhase: React.FC<CompletePhaseProps> = ({ licensePlate }) =>
           <div className="space-y-2 text-sm">
             <div className="flex items-center space-x-2">
               <Phone className="w-4 h-4 text-muted-foreground" />
-              <span className="text-muted-foreground">Call: 1-800-TAG-MAX</span>
+              <span className="text-muted-foreground">Call: 1 (800) 290-8711</span>
             </div>
             <div className="flex items-center space-x-2">
               <Mail className="w-4 h-4 text-muted-foreground" />
-              <span className="text-muted-foreground">Email: solotagsupport@cmtelematics.com</span>
+              <span className="text-muted-foreground">Email: tagpro_support@cmtelematics.com</span>
             </div>
           </div>
         </div>
