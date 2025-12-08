@@ -9,21 +9,26 @@ All colors MUST be HSL.
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 243 70% 15%; /* Navy blue for text */
+    --foreground: 243 70% 28%; /* Enhanced Navy blue for text - more visible */
 
     --card: 0 0% 100%;
-    --card-foreground: 243 70% 15%;
+    --card-foreground: 243 70% 28%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 243 70% 15%;
+    --popover-foreground: 243 70% 28%;
 
-    /* Tag Pro Brand Colors */
-    --primary: 243 70% 15%; /* Navy Blue #0e0c44 */
+    /* Tag Pro Brand Colors - Enhanced for Better Visibility */
+    --primary: 243 70% 28%; /* Enhanced Navy Blue - increased from 15% to 28% for better visibility */
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 243 70% 20%;
+    --primary-hover: 243 70% 35%; /* More noticeable hover state */
+    --primary-light: 243 70% 45%; /* Lighter blue for accents */
+    --primary-lighter: 243 50% 95%; /* Very light blue tint */
 
-    --secondary: 48 100% 50%; /* Yellow/Gold #ffd000 */
-    --secondary-foreground: 243 70% 15%;
+    --secondary: 48 100% 55%; /* Enhanced Yellow/Gold - increased saturation and lightness */
+    --secondary-foreground: 243 70% 28%; /* Navy blue text on yellow */
+    --secondary-hover: 48 100% 50%; /* Slightly darker on hover */
+    --secondary-light: 48 100% 90%; /* Light yellow tint */
+    --secondary-dark: 48 100% 45%; /* Darker yellow for depth */
 
     --success: 142 71% 45%; /* Green for success states */
     --success-foreground: 0 0% 100%;
@@ -32,20 +37,23 @@ All colors MUST be HSL.
     --muted-foreground: 243 30% 47%;
 
     --accent: 48 100% 95%; /* Light yellow tint for accents */
-    --accent-foreground: 243 70% 15%;
+    --accent-foreground: 243 70% 28%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 243 20% 90%;
-    --input: 243 20% 90%;
-    --ring: 48 100% 50%; /* Yellow ring for focus states */
+    --border: 243 30% 85%; /* Enhanced border with blue tint */
+    --input: 243 30% 90%; /* Input borders with blue tint */
+    --ring: 48 100% 55%; /* Enhanced Yellow ring for focus states - more visible */
 
-    /* Custom gradients and effects */
-    --gradient-primary: linear-gradient(135deg, hsl(243 70% 15%) 0%, hsl(243 70% 25%) 100%);
+    /* Custom gradients and effects - Enhanced */
+    --gradient-primary: linear-gradient(135deg, hsl(243 70% 28%) 0%, hsl(243 70% 40%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(48 100% 55%) 0%, hsl(48 100% 65%) 100%);
+    --gradient-brand: linear-gradient(135deg, hsl(243 70% 28%) 0%, hsl(48 100% 55%) 100%);
     --gradient-success: linear-gradient(135deg, hsl(142 71% 45%) 0%, hsl(142 71% 55%) 100%);
-    --shadow-soft: 0 4px 6px -1px hsl(243 70% 15% / 0.1), 0 2px 4px -1px hsl(243 70% 15% / 0.06);
-    --shadow-elevated: 0 10px 15px -3px hsl(243 70% 15% / 0.1), 0 4px 6px -2px hsl(243 70% 15% / 0.05);
+    --shadow-soft: 0 4px 6px -1px hsl(243 70% 28% / 0.15), 0 2px 4px -1px hsl(243 70% 28% / 0.1);
+    --shadow-elevated: 0 10px 15px -3px hsl(243 70% 28% / 0.15), 0 4px 6px -2px hsl(243 70% 28% / 0.1);
+    --shadow-yellow: 0 4px 12px -2px hsl(48 100% 55% / 0.3), 0 2px 4px -1px hsl(48 100% 55% / 0.2);
 
     /* Animation */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -79,11 +87,17 @@ All colors MUST be HSL.
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 48 100% 50%; /* Yellow for dark mode primary */
-    --primary-foreground: 243 70% 15%;
+    --primary: 48 100% 55%; /* Enhanced Yellow for dark mode primary */
+    --primary-foreground: 243 70% 28%;
+    --primary-hover: 48 100% 60%;
+    --primary-light: 48 100% 65%;
+    --primary-lighter: 48 100% 90%;
 
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: 243 70% 35%; /* Navy blue for dark mode secondary */
     --secondary-foreground: 210 40% 98%;
+    --secondary-hover: 243 70% 40%;
+    --secondary-light: 243 50% 50%;
+    --secondary-dark: 243 70% 25%;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
@@ -96,7 +110,7 @@ All colors MUST be HSL.
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --ring: 48 100% 55%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -115,5 +129,52 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Custom utility classes for brand colors */
+@layer utilities {
+  .bg-gradient-brand {
+    background: var(--gradient-brand);
+  }
+  
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .bg-gradient-secondary {
+    background: var(--gradient-secondary);
+  }
+  
+  .shadow-yellow {
+    box-shadow: var(--shadow-yellow);
+  }
+  
+  .border-primary-light {
+    border-color: hsl(var(--primary-light));
+  }
+  
+  .border-secondary-light {
+    border-color: hsl(var(--secondary-light));
+  }
+  
+  .text-primary-light {
+    color: hsl(var(--primary-light));
+  }
+  
+  .bg-primary-light {
+    background-color: hsl(var(--primary-light));
+  }
+  
+  .bg-primary-lighter {
+    background-color: hsl(var(--primary-lighter));
+  }
+  
+  .bg-secondary-light {
+    background-color: hsl(var(--secondary-light));
+  }
+  
+  .bg-secondary-dark {
+    background-color: hsl(var(--secondary-dark));
   }
 }
