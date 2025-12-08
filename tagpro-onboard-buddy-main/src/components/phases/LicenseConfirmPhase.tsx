@@ -290,11 +290,11 @@ export const LicenseConfirmPhase: React.FC<LicenseConfirmPhaseProps> = ({
                   <div className="mt-4 space-y-2">
                     <div className="flex items-center gap-2">
                       <span className="font-medium">Phone:</span>
-                      <span>1-800-TAG-MAX</span>
+                      <span>1 (800) 290-8711</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="font-medium">Email:</span>
-                      <span>solotagsupport@cmtelematics.com</span>
+                      <span>tagpro_support@cmtelematics.com</span>
                     </div>
                   </div>
                 </AlertDialogDescription>
