@@ -65,7 +65,7 @@ export const WelcomePhase: React.FC<WelcomePhaseProps> = ({ onNext, onUpdateBoxI
       title="Welcome!"
       subtitle="Let's get your Tag Pro setup"
     >
-      <div className="space-y-8">
+      <div className="space-y-8 bg-secondary p-6 -m-6 rounded-lg">
         <div className="flex justify-center items-center space-x-6 mb-6">
           <img src={limuLogo} alt="Liberty Mutual" className="h-20" />
           <img src={cmtLogo} alt="Cambridge Mobile Telematics" className="h-20" />
@@ -73,7 +73,7 @@ export const WelcomePhase: React.FC<WelcomePhaseProps> = ({ onNext, onUpdateBoxI
         
         <div className="text-center space-y-6">
           {/* Tag Pro Intro Image */}
-          <div className="bg-muted/20 p-6 border rounded-lg">
+          <div className="bg-primary/10 p-6 border-2 border-primary/30 rounded-lg">
             <img 
               src={tagProIntro} 
               alt="Tag Pro Introduction" 
@@ -85,12 +85,12 @@ export const WelcomePhase: React.FC<WelcomePhaseProps> = ({ onNext, onUpdateBoxI
         {/* Policy ID Field */}
         <div className="space-y-4">
           <div>
-            <Label htmlFor="policyId">Policy ID</Label>
+            <Label htmlFor="policyId" className="text-primary font-semibold">Policy ID</Label>
             <Input
               id="policyId"
               value={generatePolicyId(boxId)}
               readOnly
-              className="font-mono text-center text-lg bg-muted"
+              className="font-mono text-center text-lg bg-background text-primary border-primary/50"
             />
           </div>
         </div>
@@ -98,15 +98,15 @@ export const WelcomePhase: React.FC<WelcomePhaseProps> = ({ onNext, onUpdateBoxI
         {/* Box ID Field */}
         <div className="space-y-4">
           <div>
-            <Label htmlFor="boxId">Box ID</Label>
+            <Label htmlFor="boxId" className="text-primary font-semibold">Box ID</Label>
             <Input
               id="boxId"
               value={boxId}
               onChange={handleBoxIdChange}
               placeholder="Tag_Pro-XXXX"
-              className="font-mono text-center text-lg"
+              className="font-mono text-center text-lg bg-background text-primary border-primary/50"
             />
-            <p className="text-xs text-muted-foreground mt-1 text-center">
+            <p className="text-xs text-primary/70 mt-1 text-center">
               Box ID from your Tag Pro package
             </p>
           </div>
