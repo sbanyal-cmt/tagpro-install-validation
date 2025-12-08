@@ -25,9 +25,9 @@ export const PhaseContainer: React.FC<PhaseContainerProps> = ({
       <div className="flex-1 flex flex-col max-w-md mx-auto w-full">
         <ProgressIndicator currentPhase={currentPhase} totalPhases={totalPhases} />
         
-        <Card className="flex-1 p-6 shadow-lg">
+        <Card className="flex-1 p-6 shadow-lg border-2 border-primary/20">
           <div className="text-center mb-6">
-            <h1 className="text-xl font-bold text-foreground mb-2">{title}</h1>
+            <h1 className="text-xl font-bold text-primary mb-2">{title}</h1>
             {subtitle && (
               <p className="text-muted-foreground text-sm">{subtitle}</p>
             )}
