@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { PhaseContainer } from '../PhaseContainer';
-import { Camera, Upload, RotateCcw, Check, Square } from 'lucide-react';
+import { Camera, Upload, RotateCcw, Check, Square, SkipForward } from 'lucide-react';
 import tagProInstall from '@/assets/tagpro-install.jpg';
 
 interface PhotoUploadPhaseProps {
@@ -159,6 +159,10 @@ export const PhotoUploadPhase: React.FC<PhotoUploadPhaseProps> = ({
     }
   };
 
+  const handleSkip = () => {
+    onNext();
+  };
+
   // Cleanup stream on unmount
   useEffect(() => {
     return () => {
@@ -172,204 +176,217 @@ export const PhotoUploadPhase: React.FC<PhotoUploadPhaseProps> = ({
   }, [stream]);
 
   return (
-    <PhaseContainer
-      currentPhase={2}
-      totalPhases={4}
-      title="Final Step: Confirm Installation"
-      subtitle="Upload a photo of your installed Tag Pro"
-    >
-      <div className="space-y-6">
-        {!showCamera && !photo ? (
-          <>
-            <div className="text-center space-y-4">
-              <div className="flex justify-center mb-4">
-                <img 
-                  src={tagProInstall} 
-                  alt="Tag Pro device" 
-                  className="w-64 h-48 object-cover border border-border rounded-lg"
-                />
-              </div>
-            </div>
-
-            <div className="bg-amber-50 border border-amber-200 p-4">
-              <h4 className="font-medium text-amber-800 mb-2">Photo Guidelines:</h4>
-              <ul className="text-sm text-amber-700 space-y-1">
-                <li>• Ensure Tag Pro is clearly visible with good lighting</li>
-              </ul>
-            </div>
-
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              capture="environment"
-              onChange={handleFileSelect}
-              className="hidden"
-            />
-
-            <div className="space-y-3">
-              <Button
-                onClick={startCamera}
-                className="w-full flex items-center gap-2"
-                variant="default"
-              >
-                <Camera className="w-4 h-4" />
-                Auto Capture
-              </Button>
-              
-              <Button
-                onClick={() => fileInputRef.current?.click()}
-                className="w-full flex items-center gap-2"
-                variant="outline"
-              >
-                <Upload className="w-4 h-4" />
-                Upload a Photo
-              </Button>
-            </div>
-          </>
-        ) : showCamera ? (
-          <>
-            {/* Live Camera Feed with AR Overlays */}
-            <div className="relative aspect-video bg-black overflow-hidden rounded-md">
-              <video
-                ref={videoRef}
-                autoPlay
-                playsInline
-                muted
-                className="w-full h-full object-cover"
-              />
-              
-              {/* Windshield Frame Overlay */}
-              <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute inset-4 border-2 border-white/80 bg-transparent rounded-lg">
-                  <div className="absolute -top-6 left-2 text-white text-xs bg-black/50 px-2 py-1 rounded">
-                    Align windshield within frame
-                  </div>
-                </div>
-              </div>
-
-              {/* Fading Tag Detection Overlay */}
-              <div className="absolute inset-0 pointer-events-none">
-                <div 
-                  className="absolute w-16 h-12 border-2 border-blue-400 bg-blue-400/10 rounded-lg flex items-center justify-center"
-                  style={{
-                    left: `${tagDetectionPosition.x}%`,
-                    top: `${tagDetectionPosition.y}%`,
-                    opacity: tagDetectionOpacity,
-                    transition: 'opacity 0.2s ease-out'
-                  }}
-                >
-                  <div className="text-blue-300 text-xs font-medium text-center">
-                    <div className="animate-pulse">Searching Tag</div>
-                    <div className="w-2 h-2 bg-blue-400 rounded-full mx-auto mt-1 animate-bounce"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Instructions */}
-            <div className="text-center space-y-2">
-              <p className="text-sm font-medium text-foreground">
-                Position your windshield within the white frame
-              </p>
-              <p className="text-xs text-muted-foreground">
-                Make sure Tag Pro is clearly visible
-              </p>
-            </div>
-            
-            {/* Camera Controls */}
-            <div className="flex gap-3">
-              <Button
-                onClick={stopCamera}
-                variant="outline"
-                className="flex-1"
-              >
-                Cancel
-              </Button>
-              
-              <Button
-                onClick={capturePhoto}
-                disabled={isCapturing}
-                className="flex-1 flex items-center gap-2"
-                variant="default"
-              >
-                {isCapturing ? (
-                  <>
-                    <Square className="w-4 h-4 animate-pulse" />
-                    Capturing...
-                  </>
-                ) : (
-                  <>
-                    <Square className="w-4 h-4" />
-                    Capture Photo
-                  </>
-                )}
-              </Button>
-            </div>
-          </>
-        ) : (
-          <>
-            {/* Photo Preview */}
-            <div className="space-y-4">
-              <div className="aspect-video bg-muted overflow-hidden rounded-lg">
-                {previewUrl && (
-                  <img
-                    src={previewUrl}
-                    alt="Tag Pro installation preview"
-                    className="w-full h-full object-cover"
+    <div className="min-h-screen bg-yellow-50">
+      <PhaseContainer
+        currentPhase={2}
+        totalPhases={4}
+        title="Final Step: Confirm Installation"
+        subtitle="Upload a photo of your installed Tag Pro"
+      >
+        <div className="space-y-6">
+          {!showCamera && !photo ? (
+            <>
+              <div className="text-center space-y-4">
+                <div className="flex justify-center mb-4">
+                  <img 
+                    src={tagProInstall} 
+                    alt="Tag Pro device" 
+                    className="w-64 h-48 object-cover border border-border rounded-lg"
                   />
-                )}
+                </div>
+              </div>
+
+              <div className="bg-amber-50 border border-amber-200 p-4">
+                <h4 className="font-medium text-amber-800 mb-2">Photo Guidelines:</h4>
+                <ul className="text-sm text-amber-700 space-y-1">
+                  <li>• Ensure Tag Pro is clearly visible with good lighting</li>
+                </ul>
+              </div>
+
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                capture="environment"
+                onChange={handleFileSelect}
+                className="hidden"
+              />
+
+              <div className="space-y-3">
+                <Button
+                  onClick={startCamera}
+                  className="w-full flex items-center gap-2"
+                  variant="default"
+                >
+                  <Camera className="w-4 h-4" />
+                  Auto Capture
+                </Button>
+                
+                <Button
+                  onClick={() => fileInputRef.current?.click()}
+                  className="w-full flex items-center gap-2"
+                  variant="outline"
+                >
+                  <Upload className="w-4 h-4" />
+                  Upload a Photo
+                </Button>
+              </div>
+            </>
+          ) : showCamera ? (
+            <>
+              {/* Live Camera Feed with AR Overlays */}
+              <div className="relative aspect-video bg-black overflow-hidden rounded-md">
+                <video
+                  ref={videoRef}
+                  autoPlay
+                  playsInline
+                  muted
+                  className="w-full h-full object-cover"
+                />
+                
+                {/* Windshield Frame Overlay */}
+                <div className="absolute inset-0 pointer-events-none">
+                  <div className="absolute inset-4 border-2 border-white/80 bg-transparent rounded-lg">
+                    <div className="absolute -top-6 left-2 text-white text-xs bg-black/50 px-2 py-1 rounded">
+                      Align windshield within frame
+                    </div>
+                  </div>
+                </div>
+
+                {/* Fading Tag Detection Overlay */}
+                <div className="absolute inset-0 pointer-events-none">
+                  <div 
+                    className="absolute w-16 h-12 border-2 border-blue-400 bg-blue-400/10 rounded-lg flex items-center justify-center"
+                    style={{
+                      left: `${tagDetectionPosition.x}%`,
+                      top: `${tagDetectionPosition.y}%`,
+                      opacity: tagDetectionOpacity,
+                      transition: 'opacity 0.2s ease-out'
+                    }}
+                  >
+                    <div className="text-blue-300 text-xs font-medium text-center">
+                      <div className="animate-pulse">Searching Tag</div>
+                      <div className="w-2 h-2 bg-blue-400 rounded-full mx-auto mt-1 animate-bounce"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
               
-              <div className="text-center">
-                <p className="text-sm text-muted-foreground">
-                  Does this photo clearly show your Tag Pro installation?
+              {/* Instructions */}
+              <div className="text-center space-y-2">
+                <p className="text-sm font-medium text-foreground">
+                  Position your windshield within the white frame
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Make sure Tag Pro is clearly visible
                 </p>
               </div>
-            </div>
+              
+              {/* Camera Controls */}
+              <div className="flex gap-3">
+                <Button
+                  onClick={stopCamera}
+                  variant="outline"
+                  className="flex-1"
+                >
+                  Cancel
+                </Button>
+                
+                <Button
+                  onClick={capturePhoto}
+                  disabled={isCapturing}
+                  className="flex-1 flex items-center gap-2"
+                  variant="default"
+                >
+                  {isCapturing ? (
+                    <>
+                      <Square className="w-4 h-4 animate-pulse" />
+                      Capturing...
+                    </>
+                  ) : (
+                    <>
+                      <Square className="w-4 h-4" />
+                      Capture Photo
+                    </>
+                  )}
+                </Button>
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Photo Preview */}
+              <div className="space-y-4">
+                <div className="aspect-video bg-muted overflow-hidden rounded-lg">
+                  {previewUrl && (
+                    <img
+                      src={previewUrl}
+                      alt="Tag Pro installation preview"
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+                </div>
+                
+                <div className="text-center">
+                  <p className="text-sm text-muted-foreground">
+                    Does this photo clearly show your Tag Pro installation?
+                  </p>
+                </div>
+              </div>
 
-            <div className="flex gap-3">
-              <Button
-                onClick={handleRetry}
-                variant="outline"
-                className="flex-1 flex items-center gap-2"
-              >
-                <RotateCcw className="w-4 h-4" />
-                Retake
-              </Button>
-              <Button
-                onClick={handleConfirmUpload}
-                disabled={isUploading}
-                className="flex-1 flex items-center gap-2"
-                variant="default"
-              >
-                {isUploading ? (
-                  <>
-                    <Upload className="w-4 h-4 animate-spin" />
-                    Uploading...
-                  </>
-                ) : (
-                  <>
-                    <Check className="w-4 h-4" />
-                    Confirm
-                  </>
-                )}
-              </Button>
-            </div>
-          </>
-        )}
+              <div className="flex gap-3">
+                <Button
+                  onClick={handleRetry}
+                  variant="outline"
+                  className="flex-1 flex items-center gap-2"
+                >
+                  <RotateCcw className="w-4 h-4" />
+                  Retake
+                </Button>
+                <Button
+                  onClick={handleConfirmUpload}
+                  disabled={isUploading}
+                  className="flex-1 flex items-center gap-2"
+                  variant="default"
+                >
+                  {isUploading ? (
+                    <>
+                      <Upload className="w-4 h-4 animate-spin" />
+                      Uploading...
+                    </>
+                  ) : (
+                    <>
+                      <Check className="w-4 h-4" />
+                      Confirm
+                    </>
+                  )}
+                </Button>
+              </div>
+            </>
+          )}
 
-        <div className="flex gap-3 mt-auto">
-          <Button
-            variant="outline"
-            onClick={onBack}
-            className="flex-1"
-            disabled={isUploading}
-          >
-            Back
-          </Button>
+          {/* Back and Skip Buttons - Smaller Back, Skip button */}
+          <div className="flex gap-3 mt-auto items-center">
+            <Button
+              variant="outline"
+              onClick={onBack}
+              size="sm"
+              className="text-xs"
+              disabled={isUploading}
+            >
+              Back
+            </Button>
+            <Button
+              variant="default"
+              onClick={handleSkip}
+              className="flex-1 flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-medium"
+              disabled={isUploading}
+            >
+              <SkipForward className="w-4 h-4" />
+              Skip
+            </Button>
+          </div>
         </div>
-      </div>
-    </PhaseContainer>
+      </PhaseContainer>
+    </div>
   );
 };
