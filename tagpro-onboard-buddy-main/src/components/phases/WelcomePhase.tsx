@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { PhaseContainer } from '../PhaseContainer';
 import { trackWelcomeStart, trackWelcomeComplete } from '@/services/analytics';
+import { HelpCircle } from 'lucide-react';
 import limuLogo from '@/assets/LIMU-Logo.png';
 import cmtLogo from '@/assets/cmt-logo.png';
 import tagProIntro from '@/assets/tagpro-intro.jpg';
@@ -15,48 +17,30 @@ interface WelcomePhaseProps {
 }
 
 export const WelcomePhase: React.FC<WelcomePhaseProps> = ({ onNext, onUpdateBoxId, onUpdatePolicyId }) => {
-  // Generate random 4-digit number for Box ID with new format
-  const generateBoxId = () => {
-    const randomNumber = Math.floor(Math.random() * 9000) + 1000; // 1000-9999
-    return `Tag_Pro-${randomNumber}`;
+  // Generate random 6-character alphanumeric string for Device ID (MAC address-like format)
+  const generateDeviceId = () => {
+    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let result = '';
+    for (let i = 0; i < 6; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return `Tag_Pro-${result}`;
   };
 
-  // Generate Policy ID: "Policy"_random number_Box ID
-  const generatePolicyId = (boxId: string) => {
-    const randomNumber = Math.floor(Math.random() * 900000) + 100000; // 100000-999999
-    return `Policy_${randomNumber}_${boxId}`;
-  };
-
-  const [boxId, setBoxId] = useState(generateBoxId());
-  const [policyId] = useState(() => {
-    const initialBoxId = generateBoxId();
-    return generatePolicyId(initialBoxId);
-  });
+  const [deviceId] = useState(generateDeviceId());
 
   // Track welcome phase start
   useEffect(() => {
     trackWelcomeStart();
   }, []);
 
-  const handleBoxIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newBoxId = e.target.value;
-    setBoxId(newBoxId);
-  };
-
   const handleNext = () => {
-    // Update the box ID in the data
-    onUpdateBoxId(boxId);
-    // Update policy ID if handler exists
-    if (onUpdatePolicyId) {
-      const currentPolicyId = generatePolicyId(boxId);
-      onUpdatePolicyId(currentPolicyId);
-    }
+    // Update the device ID in the data
+    onUpdateBoxId(deviceId);
     // Track welcome phase completion
-    trackWelcomeComplete(boxId);
+    trackWelcomeComplete(deviceId);
     onNext();
   };
-
-  const canProceed = boxId.trim().length > 0;
 
   return (
     <PhaseContainer
@@ -82,40 +66,62 @@ export const WelcomePhase: React.FC<WelcomePhaseProps> = ({ onNext, onUpdateBoxI
           </div>
         </div>
 
-        {/* Policy ID Field */}
+        {/* Device ID Field */}
         <div className="space-y-4">
           <div>
-            <Label htmlFor="policyId">Policy ID</Label>
+            <Label htmlFor="deviceId">Device ID</Label>
             <Input
-              id="policyId"
-              value={generatePolicyId(boxId)}
+              id="deviceId"
+              value={deviceId}
               readOnly
               className="font-mono text-center text-lg bg-muted"
             />
+            <p className="text-xs text-muted-foreground mt-1 text-center">
+              Device ID from your Tag Pro package
+            </p>
           </div>
         </div>
 
-        {/* Box ID Field */}
-        <div className="space-y-4">
-          <div>
-            <Label htmlFor="boxId">Box ID</Label>
-            <Input
-              id="boxId"
-              value={boxId}
-              onChange={handleBoxIdChange}
-              placeholder="Tag_Pro-XXXX"
-              className="font-mono text-center text-lg"
-            />
-            <p className="text-xs text-muted-foreground mt-1 text-center">
-              Box ID from your Tag Pro package
-            </p>
-          </div>
+        {/* Help Callout */}
+        <div className="bg-muted/50 border border-border rounded-lg p-4">
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <button className="text-sm text-muted-foreground hover:text-foreground underline flex items-center gap-1 w-full text-left">
+                <HelpCircle className="w-4 h-4" />
+                Details don't look right? Contact Support
+              </button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Information Mismatch?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  If there is an information mismatch, please contact Customer Support:
+                  <div className="mt-4 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium">Phone:</span>
+                      <span>1 (800) 290-8711</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium">Email:</span>
+                      <span>tagpro_support@cmtelematics.com</span>
+                    </div>
+                  </div>
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel asChild>
+                  <Button variant="default" className="bg-blue-600 hover:bg-blue-700 text-white">
+                    Close
+                  </Button>
+                </AlertDialogCancel>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
 
         <div className="flex-1 flex items-end">
           <Button
             onClick={handleNext}
-            disabled={!canProceed}
             className="w-full text-lg py-6 font-semibold"
             variant="default"
           >
