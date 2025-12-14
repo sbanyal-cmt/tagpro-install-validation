@@ -52,35 +52,6 @@ const generateRandomVIN = (): string => {
   return vin;
 };
 
-// Generate random vehicle make and model
-const generateRandomMake = (): string => {
-  const makes = ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'Nissan', 'BMW', 'Mercedes-Benz', 'Audi', 'Hyundai', 'Kia', 'Mazda', 'Subaru', 'Volkswagen', 'Lexus', 'Acura'];
-  return makes[Math.floor(Math.random() * makes.length)];
-};
-
-const generateRandomModel = (make: string): string => {
-  const modelMap: { [key: string]: string[] } = {
-    'Toyota': ['Camry', 'Corolla', 'RAV4', 'Highlander', 'Prius', 'Sienna'],
-    'Honda': ['Civic', 'Accord', 'CR-V', 'Pilot', 'Fit', 'HR-V'],
-    'Ford': ['F-150', 'Explorer', 'Escape', 'Mustang', 'Edge', 'Expedition'],
-    'Chevrolet': ['Silverado', 'Equinox', 'Malibu', 'Tahoe', 'Traverse', 'Camaro'],
-    'Nissan': ['Altima', 'Sentra', 'Rogue', 'Pathfinder', 'Murano', 'Frontier'],
-    'BMW': ['3 Series', '5 Series', 'X3', 'X5', '7 Series', 'i3'],
-    'Mercedes-Benz': ['C-Class', 'E-Class', 'S-Class', 'GLC', 'GLE', 'A-Class'],
-    'Audi': ['A4', 'A6', 'Q5', 'Q7', 'A3', 'TT'],
-    'Hyundai': ['Elantra', 'Sonata', 'Tucson', 'Santa Fe', 'Accent', 'Palisade'],
-    'Kia': ['Forte', 'Optima', 'Sportage', 'Sorento', 'Soul', 'Telluride'],
-    'Mazda': ['Mazda3', 'Mazda6', 'CX-5', 'CX-9', 'MX-5', 'CX-30'],
-    'Subaru': ['Outback', 'Forester', 'Impreza', 'Legacy', 'Crosstrek', 'Ascent'],
-    'Volkswagen': ['Jetta', 'Passat', 'Tiguan', 'Atlas', 'Golf', 'Arteon'],
-    'Lexus': ['ES', 'IS', 'RX', 'GX', 'LS', 'NX'],
-    'Acura': ['TLX', 'ILX', 'RDX', 'MDX', 'NSX', 'RLX']
-  };
-  
-  const models = modelMap[make] || ['Unknown Model'];
-  return models[Math.floor(Math.random() * models.length)];
-};
-
 // Generate random license plate
 const generateRandomLicensePlate = (): string => {
   const chars = 'ABCDEFGHJKLMNPRSTUVWXYZ0123456789';
@@ -114,8 +85,6 @@ export const LicenseConfirmPhase: React.FC<LicenseConfirmPhaseProps> = ({
   const [state, setState] = useState(vehicleData.state || STATE_CODES[Math.floor(Math.random() * STATE_CODES.length)]);
   const [licensePlate, setLicensePlate] = useState(vehicleData.licensePlate || generateRandomLicensePlate());
   const [vin, setVin] = useState(vehicleData.vin || generateRandomVIN());
-  const [make, setMake] = useState(vehicleData.make || generateRandomMake());
-  const [model, setModel] = useState(vehicleData.model || generateRandomModel(vehicleData.make || make));
   const [nickname, setNickname] = useState(vehicleData.nickname || '');
   const [isUploading, setIsUploading] = useState(false);
   const [editingField, setEditingField] = useState<string | null>(null);
@@ -142,16 +111,12 @@ export const LicenseConfirmPhase: React.FC<LicenseConfirmPhaseProps> = ({
       
       // After 4 seconds, update fields and hide popup
       setTimeout(() => {
-        // Randomly update State, VIN, Make, Model
+        // Randomly update State and VIN
         const newState = STATE_CODES[Math.floor(Math.random() * STATE_CODES.length)];
         const newVIN = generateRandomVIN();
-        const newMake = generateRandomMake();
-        const newModel = generateRandomModel(newMake);
         
         setState(newState);
         setVin(newVIN);
-        setMake(newMake);
-        setModel(newModel);
         
         // Update original license plate to new one
         setOriginalLicensePlate(newPlate);
@@ -175,9 +140,7 @@ export const LicenseConfirmPhase: React.FC<LicenseConfirmPhaseProps> = ({
     onUpdate({ 
       state: field === 'state' ? state : vehicleData.state,
       licensePlate: field === 'licensePlate' ? licensePlate : vehicleData.licensePlate,
-      vin: field === 'vin' ? vin : vehicleData.vin,
-      make: field === 'make' ? make : vehicleData.make,
-      model: field === 'model' ? model : vehicleData.model
+      vin: field === 'vin' ? vin : vehicleData.vin
     });
   };
 
@@ -187,8 +150,6 @@ export const LicenseConfirmPhase: React.FC<LicenseConfirmPhaseProps> = ({
     setState(vehicleData.state || STATE_CODES[Math.floor(Math.random() * STATE_CODES.length)]);
     setLicensePlate(vehicleData.licensePlate || generateRandomLicensePlate());
     setVin(vehicleData.vin || generateRandomVIN());
-    setMake(vehicleData.make || generateRandomMake());
-    setModel(vehicleData.model || generateRandomModel(vehicleData.make || make));
     setShowRetrievingPopup(false);
   };
 
@@ -201,8 +162,6 @@ export const LicenseConfirmPhase: React.FC<LicenseConfirmPhaseProps> = ({
         state: state,
         licensePlate: licensePlate,
         vin: vin,
-        make: make,
-        model: model,
         nickname: nickname
       });
       
@@ -211,9 +170,7 @@ export const LicenseConfirmPhase: React.FC<LicenseConfirmPhaseProps> = ({
         state: state,
         licensePlate: licensePlate,
         nickname: nickname.trim() || undefined,
-        vin: vin,
-        make: make,
-        model: model
+        vin: vin
       });
       
       // Prepare the data to send to Google Sheets
@@ -223,8 +180,6 @@ export const LicenseConfirmPhase: React.FC<LicenseConfirmPhaseProps> = ({
         licensePlate: licensePlate || '',
         nickname: nickname.trim() || '',
         vin: vin || '',
-        make: make || '',
-        model: model || '',
         dataType: 'vehicle',
         timestamp: new Date().toISOString()
       };
@@ -288,10 +243,6 @@ export const LicenseConfirmPhase: React.FC<LicenseConfirmPhaseProps> = ({
                 <AlertDialogDescription>
                   If there is an information mismatch, please contact Customer Support:
                   <div className="mt-4 space-y-2">
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium">Phone:</span>
-                      <span>1 (800) 290-8711</span>
-                    </div>
                     <div className="flex items-center gap-2">
                       <span className="font-medium">Email:</span>
                       <span>tagpro_support@cmtelematics.com</span>
@@ -381,18 +332,6 @@ export const LicenseConfirmPhase: React.FC<LicenseConfirmPhaseProps> = ({
             <div className="flex justify-between items-center">
               <span className="text-sm font-medium">VIN:</span>
               <span className="font-mono text-sm">{vin}</span>
-            </div>
-
-            {/* Make - No Edit Option */}
-            <div className="flex justify-between items-center">
-              <span className="text-sm font-medium">Make:</span>
-              <span className="font-mono text-sm">{make}</span>
-            </div>
-
-            {/* Model - No Edit Option */}
-            <div className="flex justify-between items-center">
-              <span className="text-sm font-medium">Model:</span>
-              <span className="font-mono text-sm">{model}</span>
             </div>
           </div>
         </Card>
