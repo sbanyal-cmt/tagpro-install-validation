@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { PhaseContainer } from '../PhaseContainer';
-import { CheckCircle, Home, Phone, Mail } from 'lucide-react';
+import { CheckCircle, Home, Mail } from 'lucide-react';
 
 interface CompletePhaseProps {
   licensePlate?: string;
+  deviceId?: string;
 }
 
-export const CompletePhase: React.FC<CompletePhaseProps> = ({ licensePlate }) => {
+export const CompletePhase: React.FC<CompletePhaseProps> = ({ licensePlate, deviceId }) => {
   const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
@@ -98,12 +99,21 @@ export const CompletePhase: React.FC<CompletePhaseProps> = ({ licensePlate }) =>
         </div>
 
         {/* Vehicle Information */}
-        {licensePlate && (
+        {(licensePlate || deviceId) && (
           <div className="bg-accent/20 border border-accent rounded-lg p-4">
             <h3 className="font-medium text-foreground mb-2">Vehicle Information</h3>
-            <p className="text-sm text-muted-foreground">
-              License Plate: <span className="font-mono font-semibold">{licensePlate}</span>
-            </p>
+            <div className="space-y-2 text-sm">
+              {licensePlate && (
+                <p className="text-muted-foreground">
+                  License Plate: <span className="font-mono font-semibold">{licensePlate}</span>
+                </p>
+              )}
+              {deviceId && (
+                <p className="text-muted-foreground">
+                  Device ID: <span className="font-mono font-semibold">{deviceId}</span>
+                </p>
+              )}
+            </div>
           </div>
         )}
 
@@ -138,10 +148,6 @@ export const CompletePhase: React.FC<CompletePhaseProps> = ({ licensePlate }) =>
         <div className="bg-muted/30 border rounded-lg p-4">
           <h3 className="font-medium text-foreground mb-3">Need Help?</h3>
           <div className="space-y-2 text-sm">
-            <div className="flex items-center space-x-2">
-              <Phone className="w-4 h-4 text-muted-foreground" />
-              <span className="text-muted-foreground">Call: 1 (800) 290-8711</span>
-            </div>
             <div className="flex items-center space-x-2">
               <Mail className="w-4 h-4 text-muted-foreground" />
               <span className="text-muted-foreground">Email: tagpro_support@cmtelematics.com</span>
