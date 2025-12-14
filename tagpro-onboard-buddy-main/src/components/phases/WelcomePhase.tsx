@@ -98,10 +98,6 @@ export const WelcomePhase: React.FC<WelcomePhaseProps> = ({ onNext, onUpdateBoxI
                   If there is an information mismatch, please contact Customer Support:
                   <div className="mt-4 space-y-2">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium">Phone:</span>
-                      <span>1 (800) 290-8711</span>
-                    </div>
-                    <div className="flex items-center gap-2">
                       <span className="font-medium">Email:</span>
                       <span>tagpro_support@cmtelematics.com</span>
                     </div>
