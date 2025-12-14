@@ -82,13 +82,13 @@ export const WelcomePhase: React.FC<WelcomePhaseProps> = ({ onNext, onUpdateBoxI
           </div>
         </div>
 
-        {/* Help Callout */}
-        <div className="bg-muted/50 border border-border rounded-lg p-4">
+        {/* Help Callout - Smaller, Centered, Light Yellow */}
+        <div className="flex justify-center">
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <button className="text-sm text-muted-foreground hover:text-foreground underline flex items-center gap-1 w-full text-left">
-                <HelpCircle className="w-4 h-4" />
-                Details don't look right? Contact Support
+              <button className="text-xs text-muted-foreground hover:text-foreground underline flex items-center gap-1 bg-yellow-50 hover:bg-yellow-100 border border-yellow-200 rounded-md px-3 py-1.5 transition-colors">
+                <HelpCircle className="w-3 h-3" />
+                Details don't look right?
               </button>
             </AlertDialogTrigger>
             <AlertDialogContent>
