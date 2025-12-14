@@ -364,13 +364,12 @@ export const PhotoUploadPhase: React.FC<PhotoUploadPhaseProps> = ({
             </>
           )}
 
-          {/* Back and Skip Buttons - Smaller Back, Skip button */}
-          <div className="flex gap-3 mt-auto items-center">
+          {/* Back and Skip Buttons - Equal width, full width together */}
+          <div className="flex gap-3 mt-auto">
             <Button
               variant="outline"
               onClick={onBack}
-              size="sm"
-              className="text-xs"
+              className="flex-1"
               disabled={isUploading}
             >
               Back
