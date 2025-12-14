@@ -112,7 +112,7 @@ export const TagProOnboarding: React.FC = () => {
       );
       
     case 'complete':
-      return <CompletePhase licensePlate={data.vehicle?.licensePlate} />;
+      return <CompletePhase licensePlate={data.vehicle?.licensePlate} deviceId={data.boxId} />;
       
     default:
       return <WelcomePhase onNext={nextPhase} onUpdateBoxId={updateBoxId} onUpdatePolicyId={updatePolicyId} />;
